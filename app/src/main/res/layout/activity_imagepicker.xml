@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/buttonLoadPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:onClick="loadImagefromGallery"
+            android:text="From Gallerry" >
+        </Button>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="From Camera"
+            android:id="@+id/btnFromCamera"
+            android:onClick="FromCamera"
+            android:layout_weight="0" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+    </ImageView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:paddingRight="0dp">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:id="@+id/txtComment"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:hint="Say something about this photo"
+            android:inputType="text"
+            style="@style/Base.TextAppearance.AppCompat.Title" />
+
+        <Button
+            android:layout_width="68dp"
+            android:layout_height="62dp"
+            android:text="Post"
+            android:id="@+id/btnPost"
+            android:onClick="Submit"
+            android:layout_marginRight="5dp" />
+    </LinearLayout>
+
+</LinearLayout>

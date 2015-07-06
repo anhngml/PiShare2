@@ -16,6 +16,7 @@ import dev.zed.pishare2.utils.LruBitmapCache;
 public class App extends Application {
 
     public static final String TAG = App.class.getSimpleName();
+    public static String CurUser = "";
 
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;

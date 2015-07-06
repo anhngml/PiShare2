@@ -54,46 +54,22 @@ public class UserListAdapter extends BaseListAdapter {
             inflater = (LayoutInflater) activity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.feed_item, null); //user_item
+            convertView = inflater.inflate(R.layout.friend_item, null); //user_item
 
         if (imageLoader == null)
             imageLoader = App.getInstance().getImageLoader();
 
         TextView name = (TextView) convertView.findViewById(R.id.name);
-        TextView timestamp = (TextView) convertView
-                .findViewById(R.id.timestamp);
-        TextView statusMsg = (TextView) convertView
-                .findViewById(R.id.txtStatusMsg);
-        TextView url = (TextView) convertView.findViewById(R.id.txtUrl);
+        TextView userEmail = (TextView) convertView
+                .findViewById(R.id.userEmail);
         NetworkImageView profilePic = (NetworkImageView) convertView
                 .findViewById(R.id.profilePic);
-        FeedImageView feedImageView = (FeedImageView) convertView
-                .findViewById(R.id.feedImage1);
-
         UserItem item = (UserItem)userItems.get(position);
 
         name.setText(item.getName());
-
+        userEmail.setText(item.getEmail());
         // user profile pic
         profilePic.setImageUrl(item.getProfilePic(), imageLoader);
-
-        // Feed image
-        if (item.getImage() != null) {
-            feedImageView.setImageUrl(item.getImage(), imageLoader);
-            feedImageView.setVisibility(View.VISIBLE);
-            feedImageView
-                    .setResponseObserver(new FeedImageView.ResponseObserver() {
-                        @Override
-                        public void onError() {
-                        }
-
-                        @Override
-                        public void onSuccess() {
-                        }
-                    });
-        } else {
-            feedImageView.setVisibility(View.GONE);
-        }
 
         return convertView;
     }

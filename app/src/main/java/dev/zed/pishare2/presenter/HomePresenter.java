@@ -26,7 +26,6 @@ public class HomePresenter implements IHomePresenter, OnHomeListerner {
         homeView.setNavDrawerItems(modules.getModuleList(), modules.getModuleIconList(), modules.getModuleSparseCounter());
         homeView.setFooterDrawer(R.string.logout, R.drawable.ic_launcher);
         homeView.setToolbarElev(0);
-        homeView.setUserInfo("Viet Anh", "vietanh@cic.com.vn", null);
         MainFragment fragment = new MainFragment().newInstance(modules.getModuleList().get(0), 0);
         homeView.setCurrentFragment(fragment);
 
@@ -42,5 +41,12 @@ public class HomePresenter implements IHomePresenter, OnHomeListerner {
         Fragment fragment;
         fragment = new MainFragment().newInstance(modules.getModuleList().get(position), position);
         homeView.setCurrentFragment(fragment);
+    }
+
+    @Override
+    public void onMenuItemClicked(String id) {
+        if(id.equals("add")){
+            homeView.pickImage();
+        }
     }
 }

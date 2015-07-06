@@ -6,4 +6,5 @@ package dev.zed.pishare2.presenter.interfaces;
 public interface IHomePresenter {
     public void onResume();
     public void onNavDrawerItemClicked(int position);
+    void onMenuItemClicked(String id);
 }

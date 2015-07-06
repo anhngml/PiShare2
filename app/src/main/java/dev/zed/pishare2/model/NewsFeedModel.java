@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import dev.zed.pishare2.HomeActivity;
 import dev.zed.pishare2.common.App;
+import dev.zed.pishare2.common.Config;
 import dev.zed.pishare2.entity.BaseItem;
 import dev.zed.pishare2.entity.FeedItem;
 import dev.zed.pishare2.listener.OnContentListerner;
@@ -24,18 +25,18 @@ import dev.zed.pishare2.model.interfaces.INewsFeedModel;
 import dev.zed.pishare2.utils.JsonHelper;
 
 /**
- * Created by Dr on 4/7/2015.
+ * Created by zed on 4/7/2015.
  */
 public class NewsFeedModel implements INewsFeedModel {
-    private String URL_FEED = "http://10.0.0.67:81/api/feed?email=";// "http://api.androidhive.info/feed/feed.json";
     private static final String TAG = HomeActivity.class.getSimpleName();
-    ArrayList<FeedItem> feedItems = new ArrayList<FeedItem>();
+    ArrayList<FeedItem> feedItems = new ArrayList<>();
     private OnContentListerner listerner;
     @Override
     public void getItems(String ownerEmail, OnContentListerner _listerner) {
 
         listerner = _listerner;
         Cache cache = App.getInstance().getRequestQueue().getCache();
+        String URL_FEED = Config.Server_Url + "/api/feed?email=";
         Cache.Entry entry = cache.get(URL_FEED + ownerEmail);
         if (entry != null) {
             // fetch the data from cache

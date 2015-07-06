@@ -2,6 +2,7 @@ package dev.zed.pishare2.presenter;
 
 import java.util.ArrayList;
 
+import dev.zed.pishare2.common.App;
 import dev.zed.pishare2.entity.BaseItem;
 import dev.zed.pishare2.listener.OnContentListerner;
 import dev.zed.pishare2.model.NewsFeedModel;
@@ -24,11 +25,11 @@ public class ContentPresenter implements IContentPresenter, OnContentListerner {
         if (mainView.getType() == 0) {
             newsFeedModel = new NewsFeedModel();
 //            ArrayList<BaseItem> items =
-            newsFeedModel.getItems("vietanh@cic.com.vn", this);
+            newsFeedModel.getItems(App.CurUser, this);
             mainView.setItems(new ArrayList<BaseItem>());
         } else if (mainView.getType() == 1) {
             usersModel = new UsersModel();
-            ArrayList<BaseItem> items = usersModel.getItems();
+            usersModel.getItems(App.CurUser, this);
             mainView.setItems(new ArrayList<BaseItem>());
         }
     }
