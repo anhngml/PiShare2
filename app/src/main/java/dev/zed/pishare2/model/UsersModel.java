@@ -97,7 +97,7 @@ public class UsersModel implements IUsersModel {
         } else {
             // making fresh volley request and getting json
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                    URL_FEED + ownerEmail, new Response.Listener<JSONArray>() {
+                    URL_FEED + ownerEmail + "&query=" + query, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
                     //VolleyLog.d(TAG, "Response: " + response.toString());
