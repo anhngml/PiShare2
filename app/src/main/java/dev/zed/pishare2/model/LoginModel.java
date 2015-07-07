@@ -24,7 +24,8 @@ public class LoginModel implements ILoginModel, OnResponeListener {
         listener = _listener;
         login(username, password, this);
     }
-    void login (final String username,final String password,final OnResponeListener listener){
+
+    void login(final String username, final String password, final OnResponeListener listener) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -42,7 +43,7 @@ public class LoginModel implements ILoginModel, OnResponeListener {
                         String url = URL + username + "&" + "pwd=" + md5.md5(password);
                         AsyncTask<String, String, String> resp = new zHttpRequest(listener, Config.LOGIN_REQUEST_CODE).execute(url);
                     } catch (Exception e) {
-                        listener.OnResponed(e.getMessage(),Config.LOGIN_REQUEST_CODE);
+                        listener.OnResponed(e.getMessage(), Config.LOGIN_REQUEST_CODE);
                     }
                 }
             }
@@ -51,10 +52,11 @@ public class LoginModel implements ILoginModel, OnResponeListener {
 
     @Override
     public void OnResponed(String result, int RequestCode) {
-        if (result.equals("Success")) {
-            listener.onSuccess();
-        } else
-            listener.onPasswordError();
+        if (RequestCode == Config.LOGIN_REQUEST_CODE)
+            if (result != null && result.equals("Success")) {
+                listener.onSuccess();
+            } else
+                listener.onPasswordError();
     }
 
     @Override

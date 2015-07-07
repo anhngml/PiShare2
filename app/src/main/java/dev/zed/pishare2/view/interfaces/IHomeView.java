@@ -17,4 +17,5 @@ public interface IHomeView {
     public void setToolbarElev(int value);
     public void setCurrentFragment(Fragment fragment);
     public void pickImage();
+    void searchUser();
 }

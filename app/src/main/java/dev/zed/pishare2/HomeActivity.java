@@ -86,8 +86,13 @@ public class HomeActivity extends NavigationLiveo implements NavigationLiveoList
     }
 
     @Override
+    public void searchUser() {
+
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
+        if(data == null) return;
         super.onActivityResult(requestCode, resultCode, data);
         String comment = data.getStringExtra("comment");
         String image = data.getStringExtra("image");
@@ -113,7 +118,7 @@ public class HomeActivity extends NavigationLiveo implements NavigationLiveoList
                 presenter.onMenuItemClicked("add");
                 return true;
             case R.id.menu_search:
-
+                presenter.onMenuItemClicked("search");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -195,8 +200,8 @@ public class HomeActivity extends NavigationLiveo implements NavigationLiveoList
 
         @Override
         protected String doInBackground(String... params) {
-            String statusUrl = Url + "api/Status/";
-            String imageUrl = Url + "api/images/";
+            String statusUrl = Url + "/api/Status/";
+            String imageUrl = Url + "/api/images/";
             List<NameValuePair> args = new ArrayList<NameValuePair>();
             args.add(new BasicNameValuePair("ownerEmail", curEmail));
             args.add(new BasicNameValuePair("status", status));

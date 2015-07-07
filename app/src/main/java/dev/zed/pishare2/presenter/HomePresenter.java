@@ -47,6 +47,9 @@ public class HomePresenter implements IHomePresenter, OnHomeListerner {
     public void onMenuItemClicked(String id) {
         if(id.equals("add")){
             homeView.pickImage();
+        }else if(id.equals("search"))
+        {
+            homeView.searchUser();
         }
     }
 }

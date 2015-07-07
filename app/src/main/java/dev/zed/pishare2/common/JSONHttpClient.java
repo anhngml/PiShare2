@@ -278,16 +278,16 @@ public class JSONHttpClient {
             httpPost.setEntity(stringEntity);
             httpPost.setHeader("Accept", "application/json");
             httpPost.setHeader("Content-type", "application/json");
-            httpPost.setHeader("Accept-Encoding", "gzip");
+            //httpPost.setHeader("Accept-Encoding", "gzip");
 
             HttpResponse httpResponse = defaultHttpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             if (httpEntity != null) {
                 InputStream inputStream = httpEntity.getContent();
-                Header contentEncoding = httpResponse.getFirstHeader("Content-Encoding");
-                if (contentEncoding != null && contentEncoding.getValue().equalsIgnoreCase("gzip")) {
-                    inputStream = new GZIPInputStream(inputStream);
-                }
+//                Header contentEncoding = httpResponse.getFirstHeader("Content-Encoding");
+//                if (contentEncoding != null && contentEncoding.getValue().equalsIgnoreCase("gzip")) {
+//                    inputStream = new GZIPInputStream(inputStream);
+//                }
 
                 String resultString = convertStreamToString(inputStream);
                 inputStream.close();
