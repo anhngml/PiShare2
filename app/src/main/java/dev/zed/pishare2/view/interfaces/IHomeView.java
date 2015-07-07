@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.util.SparseIntArray;
+import android.view.MenuItem;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface IHomeView {
     public void setToolbarElev(int value);
     public void setCurrentFragment(Fragment fragment);
     public void pickImage();
-    void searchUser();
+    void startSearchUser(MenuItem searchView);
 }

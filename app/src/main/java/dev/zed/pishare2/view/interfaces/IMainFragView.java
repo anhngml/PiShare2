@@ -12,4 +12,5 @@ import dev.zed.pishare2.entity.BaseItem;
 public interface IMainFragView {
     public int getType();
     void setItems(ArrayList<BaseItem> items);
+    void setItems(ArrayList<BaseItem> items, int type);
 }

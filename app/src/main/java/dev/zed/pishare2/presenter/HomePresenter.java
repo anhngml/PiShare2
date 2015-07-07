@@ -1,17 +1,16 @@
 package dev.zed.pishare2.presenter;
 
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
+import android.view.MenuItem;
 
 import dev.zed.pishare2.R;
 import dev.zed.pishare2.listener.OnHomeListerner;
 import dev.zed.pishare2.model.ModuleModel;
-import dev.zed.pishare2.model.NewsFeedModel;
 import dev.zed.pishare2.model.interfaces.IModuleModel;
-import dev.zed.pishare2.model.interfaces.INewsFeedModel;
 import dev.zed.pishare2.presenter.interfaces.IHomePresenter;
 import dev.zed.pishare2.view.MainFragment;
 import dev.zed.pishare2.view.interfaces.IHomeView;
-import dev.zed.pishare2.view.interfaces.IMainFragView;
 
 /**
  * Created by Dr on 4/7/2015.
@@ -44,12 +43,12 @@ public class HomePresenter implements IHomePresenter, OnHomeListerner {
     }
 
     @Override
-    public void onMenuItemClicked(String id) {
-        if(id.equals("add")){
+    public void onMenuItemClicked(MenuItem item) {
+        if (item.getItemId() == R.id.menu_add) {
             homeView.pickImage();
-        }else if(id.equals("search"))
-        {
-            homeView.searchUser();
         }
+//        else if (item.getItemId() == R.id.menu_search) {
+//            homeView.startSearchUser(item);
+//        }
     }
 }

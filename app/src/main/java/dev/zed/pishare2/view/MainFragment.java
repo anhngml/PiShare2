@@ -35,22 +35,28 @@ public class MainFragment extends Fragment implements IMainFragView {
     private List<BaseItem> Items;
     private boolean mSearchCheck;
     Activity activity;
-    private SearchView.OnQueryTextListener onQuerySearchView = new SearchView.OnQueryTextListener() {
-        @Override
-        public boolean onQueryTextSubmit(String s) {
-            return false;
-        }
-
-        @Override
-        public boolean onQueryTextChange(String s) {
-            if (mSearchCheck) {
-                // implement your search here
-            }
-            return false;
-        }
-    };
+    public SearchView.OnQueryTextListener onQuerySearchView;
+//    private SearchView.OnQueryTextListener onQuerySearchView = new SearchView.OnQueryTextListener() {
+//        @Override
+//        public boolean onQueryTextSubmit(String s) {
+//            return false;
+//        }
+//
+//        @Override
+//        public boolean onQueryTextChange(String s) {
+//            if (mSearchCheck) {
+//
+////                UsersModel usersModel = new UsersModel();
+////                usersModel.getItems(App.CurUser, this);
+////                // implement your search here
+////                listAdapter = new UserListAdapter(activity, items);
+//            }
+//            return false;
+//        }
+//    };
     private int type = -1;
     private IContentPresenter contentPresenter;
+    SearchView.OnQueryTextListener onQueryTextListener;
 
     public MainFragment newInstance(String text, int _type) {
         MainFragment mFragment = new MainFragment();
@@ -58,7 +64,10 @@ public class MainFragment extends Fragment implements IMainFragView {
         mBundle.putString(TEXT_FRAGMENT, text);
         mFragment.setArguments(mBundle);
         mFragment.type = _type;
-        mFragment.contentPresenter = new ContentPresenter(mFragment);
+        ContentPresenter presenter = new ContentPresenter(mFragment);
+        mFragment.onQueryTextListener = presenter;
+        mFragment.contentPresenter = presenter;
+//        onQuerySearchView = onSearchListener;
         return mFragment;
     }
 
@@ -92,7 +101,7 @@ public class MainFragment extends Fragment implements IMainFragView {
 
         ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text))
                 .setHintTextColor(getResources().getColor(R.color.nliveo_white));
-        searchView.setOnQueryTextListener(onQuerySearchView);
+        searchView.setOnQueryTextListener(onQueryTextListener);
 
         menu.findItem(R.id.menu_add).setVisible(true);
         menu.findItem(R.id.menu_search).setVisible(true);
@@ -140,5 +149,13 @@ public class MainFragment extends Fragment implements IMainFragView {
         listView.setAdapter(getListAdapter(activity, Items));
 //        if(listAdapter != null)
 //        listAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setItems(ArrayList<BaseItem> items, int _type) {
+        type = _type;
+        Items = items;
+        if(listView != null && activity != null)
+            listView.setAdapter(getListAdapter(activity, Items));
     }
 }

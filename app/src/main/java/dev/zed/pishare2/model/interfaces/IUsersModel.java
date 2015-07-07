@@ -10,4 +10,5 @@ import dev.zed.pishare2.listener.OnContentListerner;
  */
 public interface IUsersModel {
     void getItems(String ownerEmail, OnContentListerner listerner);
+    void search(String ownerEmail, String query, OnContentListerner listerner);
 }

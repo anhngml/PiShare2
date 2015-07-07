@@ -72,4 +72,48 @@ public class UsersModel implements IUsersModel {
             App.getInstance().addToRequestQueue(jsonArrayRequest);
         }
     }
+
+    @Override
+    public void search(String ownerEmail, String query, OnContentListerner _listerner) {
+        listerner = _listerner;
+        Cache cache = App.getInstance().getRequestQueue().getCache();
+        String URL_FEED = Config.Server_Url + "/api/friends?email=";
+        Cache.Entry entry = cache.get(URL_FEED + ownerEmail + "&query=" + query);
+        if (entry != null) {
+            // fetch the data from cache
+            try {
+                String data = new String(entry.data, "UTF-8");
+                try {
+                    //JsonHelper.parseJsonFeed(new JSONObject(data), feedItems);
+                    JsonHelper.parseJsonUserArray(new JSONArray(data), userItems);
+                    listerner.OnDatanotifyDataSetChanged(userItems);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            // making fresh volley request and getting json
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                    URL_FEED + ownerEmail, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    //VolleyLog.d(TAG, "Response: " + response.toString());
+                    if (response != null) {
+                        JsonHelper.parseJsonUserArray(response, userItems);
+                        listerner.OnDatanotifyDataSetChanged(userItems);
+                    }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                }
+            });
+            App.getInstance().addToRequestQueue(jsonArrayRequest);
+        }
+    }
 }

@@ -7,6 +7,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +20,6 @@ import android.widget.Toast;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +40,7 @@ import dev.zed.pishare2.presenter.interfaces.IHomePresenter;
 import dev.zed.pishare2.view.interfaces.IHomeView;
 
 
-public class HomeActivity extends NavigationLiveo implements NavigationLiveoListener, IHomeView, OnResponeListener {
+public class HomeActivity extends NavigationLiveo implements NavigationLiveoListener, IHomeView, OnResponeListener, SearchView.OnQueryTextListener {
     //    private List<String> mListNameItem;
     private IHomePresenter presenter;
     private String curUser;
@@ -86,8 +89,24 @@ public class HomeActivity extends NavigationLiveo implements NavigationLiveoList
     }
 
     @Override
-    public void searchUser() {
-
+    public void startSearchUser(MenuItem item) {
+//        MenuItemCompat.expandActionView(item);
+//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//
+//
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                return false;
+//            }
+//        });
+//        presenter.onNavDrawerItemClicked(1);
     }
 
     @Override
@@ -108,18 +127,23 @@ public class HomeActivity extends NavigationLiveo implements NavigationLiveoList
                 menu.findItem(R.id.menu_search).setVisible(!visible);
                 break;
         }
+//        MenuItem menuItem = menu.findItem(R.id.menu_search);
+//        MenuItemCompat.expandActionView(menuItem);
+//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+//        searchView.setOnQueryTextListener(this);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+//        presenter.onMenuItemClicked(item);
         switch (item.getItemId()) {
             case R.id.menu_add:
-                presenter.onMenuItemClicked("add");
+                presenter.onMenuItemClicked(item);
                 return true;
-            case R.id.menu_search:
-                presenter.onMenuItemClicked("search");
-                return true;
+//            case R.id.menu_search:
+//                presenter.onMenuItemClicked(item);
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -179,6 +203,16 @@ public class HomeActivity extends NavigationLiveo implements NavigationLiveoList
     @Override
     public <T> void OnResponed(T result, int RequestCode) {
 
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 
     class PostImage extends AsyncTask<String, String, String> {
